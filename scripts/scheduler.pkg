@@ -1,0 +1,124 @@
+CREATE OR REPLACE PROCEDURE select_from_a is
+    match_first_name varchar2(50) := 'Friedrich';
+    start_time timestamp := SYSTIMESTAMP;
+    count_person int;
+BEGIN
+    FOR person IN (SELECT * FROM PERSON_DATA_A WHERE first_name=match_first_name)
+    LOOP
+        INSERT INTO SELECTED VALUES person;
+    END LOOP;
+    SELECT COUNT(*) INTO count_person from PERSON_DATA_A;
+    INSERT INTO EXECUTION_TIME VALUES (true, 'A', count_person, null, null, start_time, SYSTIMESTAMP);
+    COMMIT;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE select_from_b is
+    match_first_name varchar2(50) := 'Friedrich';
+    start_time timestamp := SYSTIMESTAMP;
+    count_person int;
+BEGIN
+    FOR person IN (SELECT * FROM PERSON_DATA_B WHERE first_name=match_first_name)
+    LOOP
+        INSERT INTO SELECTED VALUES person;
+    END LOOP;
+    SELECT COUNT(*) INTO count_person from PERSON_DATA_B;
+    INSERT INTO EXECUTION_TIME VALUES (true, 'B', count_person, null, null, start_time, SYSTIMESTAMP);
+    COMMIT;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE select_from_c is
+    match_first_name varchar2(50) := 'Friedrich';
+    start_time timestamp := SYSTIMESTAMP;
+    count_person int;
+BEGIN
+    FOR person IN (SELECT * FROM PERSON_DATA_C WHERE first_name=match_first_name)
+    LOOP
+        INSERT INTO SELECTED VALUES person;
+    END LOOP;
+    SELECT COUNT(*) INTO count_person from PERSON_DATA_C;
+    INSERT INTO EXECUTION_TIME VALUES (true, 'C', count_person, null, null, start_time, SYSTIMESTAMP);
+    COMMIT;
+END;
+/
+
+CREATE OR REPLACE PROCEDURE select_from_d is
+    match_first_name varchar2(50) := 'Friedrich';
+    start_time timestamp := SYSTIMESTAMP;
+    count_person int;
+BEGIN
+    FOR person IN (SELECT * FROM PERSON_DATA_D WHERE first_name=match_first_name)
+    LOOP
+        INSERT INTO SELECTED VALUES person;
+    END LOOP;
+    SELECT COUNT(*) INTO count_person from PERSON_DATA_D;
+    INSERT INTO EXECUTION_TIME VALUES (true, 'D', count_person, null, null, start_time, SYSTIMESTAMP);
+    COMMIT;
+END;
+/
+
+BEGIN
+    DECLARE
+        job_found number;
+    BEGIN
+        select COUNT(*) into job_found from ALL_SCHEDULER_JOBS WHERE JOB_NAME='SELECT_FROM_A_JOB';
+        IF job_found != 0 THEN
+            DBMS_SCHEDULER.DROP_JOB(job_name => 'SELECT_FROM_A_JOB');
+        END IF;
+    END;
+    DECLARE
+        job_found number;
+    BEGIN
+        select COUNT(*) into job_found from ALL_SCHEDULER_JOBS WHERE JOB_NAME='SELECT_FROM_B_JOB';
+        IF job_found != 0 THEN
+            DBMS_SCHEDULER.DROP_JOB(job_name => 'SELECT_FROM_B_JOB');
+        END IF;
+    END;
+    DECLARE
+        job_found number;
+    BEGIN
+        select COUNT(*) into job_found from ALL_SCHEDULER_JOBS WHERE JOB_NAME='SELECT_FROM_C_JOB';
+        IF job_found != 0 THEN
+            DBMS_SCHEDULER.DROP_JOB(job_name => 'SELECT_FROM_C_JOB');
+        END IF;
+    END;
+    DECLARE
+        job_found number;
+    BEGIN
+        select COUNT(*) into job_found from ALL_SCHEDULER_JOBS WHERE JOB_NAME='SELECT_FROM_D_JOB';
+        IF job_found != 0 THEN
+            DBMS_SCHEDULER.DROP_JOB(job_name => 'SELECT_FROM_D_JOB');
+        END IF;
+    END;
+
+    DBMS_SCHEDULER.CREATE_JOB (
+        job_name => 'SELECT_FROM_A_JOB',
+        job_type => 'STORED_PROCEDURE',
+        job_action => 'SELECT_FROM_A',
+        auto_drop => FALSE);
+
+    DBMS_SCHEDULER.CREATE_JOB (
+        job_name => 'SELECT_FROM_B_JOB',
+        job_type => 'STORED_PROCEDURE',
+        job_action => 'SELECT_FROM_B',
+        auto_drop => FALSE);
+
+    DBMS_SCHEDULER.CREATE_JOB (
+        job_name => 'SELECT_FROM_C_JOB',
+        job_type => 'STORED_PROCEDURE',
+        job_action => 'SELECT_FROM_C',
+        auto_drop => FALSE);
+
+    DBMS_SCHEDULER.CREATE_JOB (
+        job_name => 'SELECT_FROM_D_JOB',
+        job_type => 'STORED_PROCEDURE',
+        job_action => 'SELECT_FROM_D',
+        auto_drop => FALSE);
+
+    DBMS_SCHEDULER.RUN_JOB(job_name => 'SELECT_FROM_A_JOB', USE_CURRENT_SESSION => FALSE);
+    DBMS_SCHEDULER.RUN_JOB(job_name => 'SELECT_FROM_B_JOB', USE_CURRENT_SESSION => FALSE);
+    DBMS_SCHEDULER.RUN_JOB(job_name => 'SELECT_FROM_C_JOB', USE_CURRENT_SESSION => FALSE);
+    DBMS_SCHEDULER.RUN_JOB(job_name => 'SELECT_FROM_D_JOB', USE_CURRENT_SESSION => FALSE);
+END;
+/

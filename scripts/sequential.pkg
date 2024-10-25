@@ -1,0 +1,46 @@
+DECLARE
+    match_first_name varchar2(50) := 'Friedrich';
+    start_time timestamp := SYSTIMESTAMP;
+    start_time_b timestamp;
+    start_time_c timestamp;
+    start_time_d timestamp;
+    count_a int;
+    count_b int;
+    count_c int;
+    count_d int;
+BEGIN
+    FOR person IN (SELECT * FROM PERSON_DATA_A WHERE first_name=match_first_name)
+    LOOP
+        INSERT INTO SELECTED VALUES person;
+    END LOOP;
+    SELECT COUNT(*) INTO count_a from PERSON_DATA_A;
+    INSERT INTO EXECUTION_TIME VALUES (false, 'A', count_a, null, null, start_time, SYSTIMESTAMP);
+
+    start_time_b := SYSTIMESTAMP;
+    FOR person IN (SELECT * FROM PERSON_DATA_B WHERE first_name=match_first_name)
+    LOOP
+        INSERT INTO SELECTED VALUES person;
+    END LOOP;
+    SELECT COUNT(*) INTO count_b from PERSON_DATA_B;
+    INSERT INTO EXECUTION_TIME VALUES (false, 'B', count_b, null, null, start_time_b, SYSTIMESTAMP);
+
+    start_time_c := SYSTIMESTAMP;
+    FOR person IN (SELECT * FROM PERSON_DATA_C WHERE first_name=match_first_name)
+    LOOP
+        INSERT INTO SELECTED VALUES person;
+    END LOOP;
+    SELECT COUNT(*) INTO count_c from PERSON_DATA_C;
+    INSERT INTO EXECUTION_TIME VALUES (false, 'C', count_c, null, null, start_time_c, SYSTIMESTAMP);
+
+    start_time_d := SYSTIMESTAMP;
+    FOR person IN (SELECT * FROM PERSON_DATA_D WHERE first_name=match_first_name)
+    LOOP
+        INSERT INTO SELECTED VALUES person;
+    END LOOP;
+    SELECT COUNT(*) INTO count_d from PERSON_DATA_D;
+    INSERT INTO EXECUTION_TIME VALUES (false, 'D', count_d, null, null, start_time_d, SYSTIMESTAMP);
+
+    INSERT INTO EXECUTION_TIME VALUES (false, null, null, null, null, start_time, SYSTIMESTAMP);
+    COMMIT;
+END;
+/
