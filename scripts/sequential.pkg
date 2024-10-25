@@ -1,46 +1,86 @@
-DECLARE
+declare
     match_first_name varchar2(50) := 'Friedrich';
-    start_time timestamp := SYSTIMESTAMP;
+    start_time timestamp := systimestamp;
     start_time_b timestamp;
     start_time_c timestamp;
     start_time_d timestamp;
+    start_time_e timestamp;
+    start_time_f timestamp;
+    start_time_g timestamp;
+    start_time_h timestamp;
     count_a int;
     count_b int;
     count_c int;
     count_d int;
-BEGIN
-    FOR person IN (SELECT * FROM PERSON_DATA_A WHERE first_name=match_first_name)
-    LOOP
-        INSERT INTO SELECTED VALUES person;
-    END LOOP;
-    SELECT COUNT(*) INTO count_a from PERSON_DATA_A;
-    INSERT INTO EXECUTION_TIME VALUES (false, 'A', count_a, null, null, start_time, SYSTIMESTAMP);
+    count_e int;
+    count_f int;
+    count_g int;
+    count_h int;
+begin
+    for person in (select * from DATA_A where first_name=match_first_name)
+    loop
+        insert into SELECTED values person;
+    end loop;
+    select count(*) into count_a from DATA_A;
+    insert into EXECUTION_TIME values ('sequential', 'A', count_a, null, null, start_time, systimestamp);
 
-    start_time_b := SYSTIMESTAMP;
-    FOR person IN (SELECT * FROM PERSON_DATA_B WHERE first_name=match_first_name)
-    LOOP
-        INSERT INTO SELECTED VALUES person;
-    END LOOP;
-    SELECT COUNT(*) INTO count_b from PERSON_DATA_B;
-    INSERT INTO EXECUTION_TIME VALUES (false, 'B', count_b, null, null, start_time_b, SYSTIMESTAMP);
+    start_time_b := systimestamp;
+    for person in (select * from DATA_B where first_name=match_first_name)
+    loop
+        insert into SELECTED values person;
+    end loop;
+    select count(*) into count_b from DATA_B;
+    insert into EXECUTION_TIME values ('sequential', 'B', count_b, null, null, start_time_b, systimestamp);
 
-    start_time_c := SYSTIMESTAMP;
-    FOR person IN (SELECT * FROM PERSON_DATA_C WHERE first_name=match_first_name)
-    LOOP
-        INSERT INTO SELECTED VALUES person;
-    END LOOP;
-    SELECT COUNT(*) INTO count_c from PERSON_DATA_C;
-    INSERT INTO EXECUTION_TIME VALUES (false, 'C', count_c, null, null, start_time_c, SYSTIMESTAMP);
+    start_time_c := systimestamp;
+    for person in (select * from DATA_C where first_name=match_first_name)
+    loop
+        insert into SELECTED values person;
+    end loop;
+    select count(*) into count_c from DATA_C;
+    insert into EXECUTION_TIME values ('sequential', 'C', count_c, null, null, start_time_c, systimestamp);
 
-    start_time_d := SYSTIMESTAMP;
-    FOR person IN (SELECT * FROM PERSON_DATA_D WHERE first_name=match_first_name)
-    LOOP
-        INSERT INTO SELECTED VALUES person;
-    END LOOP;
-    SELECT COUNT(*) INTO count_d from PERSON_DATA_D;
-    INSERT INTO EXECUTION_TIME VALUES (false, 'D', count_d, null, null, start_time_d, SYSTIMESTAMP);
+    start_time_d := systimestamp;
+    for person in (select * from DATA_D where first_name=match_first_name)
+    loop
+        insert into SELECTED values person;
+    end loop;
+    select count(*) into count_d from DATA_D;
+    insert into EXECUTION_TIME values ('sequential', 'D', count_d, null, null, start_time_d, systimestamp);
 
-    INSERT INTO EXECUTION_TIME VALUES (false, null, null, null, null, start_time, SYSTIMESTAMP);
-    COMMIT;
-END;
+    start_time_e := systimestamp;
+    for person in (select * from DATA_E where first_name=match_first_name)
+    loop
+        insert into SELECTED values person;
+    end loop;
+    select count(*) into count_e from DATA_E;
+    insert into EXECUTION_TIME values ('sequential', 'E', count_e, null, null, start_time_e, systimestamp);
+
+    start_time_f := systimestamp;
+    for person in (select * from DATA_F where first_name=match_first_name)
+    loop
+        insert into SELECTED values person;
+    end loop;
+    select count(*) into count_f from DATA_F;
+    insert into EXECUTION_TIME values ('sequential', 'F', count_f, null, null, start_time_f, systimestamp);
+
+    start_time_g := systimestamp;
+    for person in (select * from DATA_G where first_name=match_first_name)
+    loop
+        insert into SELECTED values person;
+    end loop;
+    select count(*) into count_g from DATA_G;
+    insert into EXECUTION_TIME values ('sequential', 'G', count_g, null, null, start_time_g, systimestamp);
+
+    start_time_h := systimestamp;
+    for person in (select * from DATA_H where first_name=match_first_name)
+    loop
+        insert into SELECTED values person;
+    end loop;
+    select count(*) into count_h from DATA_H;
+    insert into EXECUTION_TIME values ('sequential', 'H', count_h, null, null, start_time_h, systimestamp);
+
+    insert into EXECUTION_TIME values ('sequential', null, null, null, null, start_time, systimestamp);
+    commit;
+end;
 /
