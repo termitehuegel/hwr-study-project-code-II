@@ -3,10 +3,14 @@
  */
 DROP TABLE SELECTED;
 DROP TABLE EXECUTION_TIME;
-DROP TABLE PERSON_DATA_A;
-DROP TABLE PERSON_DATA_B;
-DROP TABLE PERSON_DATA_C;
-DROP TABLE PERSON_DATA_D;
+DROP TABLE DATA_A;
+DROP TABLE DATA_B;
+DROP TABLE DATA_C;
+DROP TABLE DATA_D;
+DROP TABLE DATA_E;
+DROP TABLE DATA_F;
+DROP TABLE DATA_G;
+DROP TABLE DATA_H;
 
 /*
   Create TABLES
@@ -23,16 +27,16 @@ CREATE TABLE SELECTED
 
 CREATE TABLE EXECUTION_TIME
 (
-    parallel   boolean,
-    table_char varchar(1),
-    chunk_size int,
+    script      varchar(20),
+    table_char  varchar(1),
+    chunk_size  int,
     chunk_start rowid,
-    chunk_end  rowid,
-    start_time timestamp,
-    end_time   timestamp
+    chunk_end   rowid,
+    start_time  timestamp,
+    end_time    timestamp
 );
 
-CREATE TABLE PERSON_DATA_A
+CREATE TABLE DATA_A
 (
     name       varchar(50),
     first_name varchar(50),
@@ -42,7 +46,7 @@ CREATE TABLE PERSON_DATA_A
     occupation varchar(100)
 );
 
-CREATE TABLE PERSON_DATA_B
+CREATE TABLE DATA_B
 (
     name       varchar(50),
     first_name varchar(50),
@@ -52,7 +56,7 @@ CREATE TABLE PERSON_DATA_B
     occupation varchar(100)
 );
 
-CREATE TABLE PERSON_DATA_C
+CREATE TABLE DATA_C
 (
     name       varchar(50),
     first_name varchar(50),
@@ -62,7 +66,47 @@ CREATE TABLE PERSON_DATA_C
     occupation varchar(100)
 );
 
-CREATE TABLE PERSON_DATA_D
+CREATE TABLE DATA_D
+(
+    name       varchar(50),
+    first_name varchar(50),
+    postcode   varchar(5),
+    city       varchar(50),
+    country    varchar(50),
+    occupation varchar(100)
+);
+
+CREATE TABLE DATA_E
+(
+    name       varchar(50),
+    first_name varchar(50),
+    postcode   varchar(5),
+    city       varchar(50),
+    country    varchar(50),
+    occupation varchar(100)
+);
+
+CREATE TABLE DATA_F
+(
+    name       varchar(50),
+    first_name varchar(50),
+    postcode   varchar(5),
+    city       varchar(50),
+    country    varchar(50),
+    occupation varchar(100)
+);
+
+CREATE TABLE DATA_G
+(
+    name       varchar(50),
+    first_name varchar(50),
+    postcode   varchar(5),
+    city       varchar(50),
+    country    varchar(50),
+    occupation varchar(100)
+);
+
+CREATE TABLE DATA_H
 (
     name       varchar(50),
     first_name varchar(50),
