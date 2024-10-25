@@ -11,4 +11,7 @@ df['micro_to_end'] = (df['end_time'] - df['start_time'].min()).dt.microseconds
 df['task_duration'] = df['micro_to_end'] - df['micro_to_start'] + 1
 
 plt.barh(y=df['table_char'], width=df['task_duration'], left=df['micro_to_start'])
+plt.xlabel('Mikrosekunden seit Skriptstart')
+plt.ylabel('Verarbeitete Tabelle')
+plt.title("Zeitlicher Ablauf der Ausführung")
 plt.show()
