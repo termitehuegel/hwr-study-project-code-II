@@ -119,70 +119,70 @@ end;
 /
 
 begin
-    DECLARE
+    declare
         job_found number;
-    BEGIN
-        select COUNT(*) into job_found from ALL_SCHEDULER_JOBS WHERE JOB_NAME='SCHEDULER_A_JOB';
-        IF job_found != 0 THEN
+    begin
+        select count(*) into job_found from ALL_SCHEDULER_JOBS where JOB_NAME='SCHEDULER_A_JOB';
+        if job_found != 0 then
             DBMS_SCHEDULER.DROP_JOB(job_name => 'SCHEDULER_A_JOB');
-        END IF;
-    END;
-    DECLARE
+        end if;
+    end;
+    declare
         job_found number;
-    BEGIN
-        select COUNT(*) into job_found from ALL_SCHEDULER_JOBS WHERE JOB_NAME='SCHEDULER_B_JOB';
-        IF job_found != 0 THEN
+    begin
+        select count(*) into job_found from ALL_SCHEDULER_JOBS where JOB_NAME='SCHEDULER_B_JOB';
+        if job_found != 0 then
             DBMS_SCHEDULER.DROP_JOB(job_name => 'SCHEDULER_B_JOB');
-        END IF;
-    END;
-    DECLARE
+        end if;
+    end;
+    declare
         job_found number;
-    BEGIN
-        select COUNT(*) into job_found from ALL_SCHEDULER_JOBS WHERE JOB_NAME='SCHEDULER_C_JOB';
-        IF job_found != 0 THEN
+    begin
+        select count(*) into job_found from ALL_SCHEDULER_JOBS where JOB_NAME='SCHEDULER_C_JOB';
+        if job_found != 0 then
             DBMS_SCHEDULER.DROP_JOB(job_name => 'SCHEDULER_C_JOB');
-        END IF;
-    END;
-    DECLARE
+        end if;
+    end;
+    declare
         job_found number;
-    BEGIN
-        select COUNT(*) into job_found from ALL_SCHEDULER_JOBS WHERE JOB_NAME='SCHEDULER_D_JOB';
-        IF job_found != 0 THEN
+    begin
+        select count(*) into job_found from ALL_SCHEDULER_JOBS where JOB_NAME='SCHEDULER_D_JOB';
+        if job_found != 0 then
             DBMS_SCHEDULER.DROP_JOB(job_name => 'SCHEDULER_D_JOB');
-        END IF;
-    END;
-    DECLARE
+        end if;
+    end;
+    declare
         job_found number;
-    BEGIN
-        select COUNT(*) into job_found from ALL_SCHEDULER_JOBS WHERE JOB_NAME='SCHEDULER_E_JOB';
-        IF job_found != 0 THEN
+    begin
+        select count(*) into job_found from ALL_SCHEDULER_JOBS where JOB_NAME='SCHEDULER_E_JOB';
+        if job_found != 0 then
             DBMS_SCHEDULER.DROP_JOB(job_name => 'SCHEDULER_E_JOB');
-        END IF;
-    END;
-    DECLARE
+        end if;
+    end;
+    declare
         job_found number;
-    BEGIN
-        select COUNT(*) into job_found from ALL_SCHEDULER_JOBS WHERE JOB_NAME='SCHEDULER_F_JOB';
-        IF job_found != 0 THEN
+    begin
+        select count(*) into job_found from ALL_SCHEDULER_JOBS where JOB_NAME='SCHEDULER_F_JOB';
+        if job_found != 0 then
             DBMS_SCHEDULER.DROP_JOB(job_name => 'SCHEDULER_F_JOB');
-        END IF;
-    END;
-    DECLARE
+        end if;
+    end;
+    declare
         job_found number;
-    BEGIN
-        select COUNT(*) into job_found from ALL_SCHEDULER_JOBS WHERE JOB_NAME='SCHEDULER_G_JOB';
-        IF job_found != 0 THEN
+    begin
+        select count(*) into job_found from ALL_SCHEDULER_JOBS where JOB_NAME='SCHEDULER_G_JOB';
+        if job_found != 0 then
             DBMS_SCHEDULER.DROP_JOB(job_name => 'SCHEDULER_G_JOB');
-        END IF;
-    END;
-    DECLARE
+        end if;
+    end;
+    declare
         job_found number;
-    BEGIN
-        select COUNT(*) into job_found from ALL_SCHEDULER_JOBS WHERE JOB_NAME='SCHEDULER_H_JOB';
-        IF job_found != 0 THEN
+    begin
+        select count(*) into job_found from ALL_SCHEDULER_JOBS where JOB_NAME='SCHEDULER_H_JOB';
+        if job_found != 0 then
             DBMS_SCHEDULER.DROP_JOB(job_name => 'SCHEDULER_H_JOB');
-        END IF;
-    END;
+        end if;
+    end;
 
     DBMS_SCHEDULER.CREATE_JOB (
         job_name => 'SCHEDULER_A_JOB',
