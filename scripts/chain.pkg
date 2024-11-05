@@ -1,0 +1,372 @@
+create or replace procedure select_from_a is
+    match_first_name varchar2(50) := 'Friedrich';
+    start_time timestamp := systimestamp;
+    count_person int;
+begin
+    for person in (select * from DATA_A where first_name=match_first_name)
+    loop
+        insert into SELECTED values person;
+    end loop;
+    select count(*) into count_person from DATA_A;
+    insert into EXECUTION_TIME values ('chain', 'A', count_person, null, null, start_time, systimestamp);
+    commit;
+end;
+/
+
+create or replace procedure select_from_b is
+    match_first_name varchar2(50) := 'Friedrich';
+    start_time timestamp := systimestamp;
+    count_person int;
+begin
+    for person in (select * from DATA_B where first_name=match_first_name)
+    loop
+        insert into SELECTED values person;
+    end loop;
+    select count(*) into count_person from DATA_B;
+    insert into EXECUTION_TIME values ('chain', 'B', count_person, null, null, start_time, systimestamp);
+    commit;
+end;
+/
+
+create or replace procedure select_from_c is
+    match_first_name varchar2(50) := 'Friedrich';
+    start_time timestamp := systimestamp;
+    count_person int;
+begin
+    for person in (select * from DATA_C where first_name=match_first_name)
+    loop
+        insert into SELECTED values person;
+    end loop;
+    select count(*) into count_person from DATA_C;
+    insert into EXECUTION_TIME values ('chain', 'C', count_person, null, null, start_time, systimestamp);
+    commit;
+end;
+/
+
+create or replace procedure select_from_d is
+    match_first_name varchar2(50) := 'Friedrich';
+    start_time timestamp := systimestamp;
+    count_person int;
+begin
+    for person in (select * from DATA_D where first_name=match_first_name)
+    loop
+        insert into SELECTED values person;
+    end loop;
+    select count(*) into count_person from DATA_D;
+    insert into EXECUTION_TIME values ('chain', 'D', count_person, null, null, start_time, systimestamp);
+    commit;
+end;
+/
+
+create or replace procedure update_postcode is
+    start_time timestamp := systimestamp;
+    count_person int;
+begin
+    update SELECTED set POSTCODE = 12345;
+    select count(*) into count_person from SELECTED;
+    insert into EXECUTION_TIME values ('chain', 'S', count_person, null, null, start_time, systimestamp);
+    commit;
+end;
+/
+
+declare
+    start_time timestamp := systimestamp;
+begin
+
+--
+--      CLEAN UP LAST EXECUTION
+--
+
+
+--  JOB
+
+    declare
+        job_found number;
+    begin
+        select count(*) into job_found from ALL_SCHEDULER_JOBS where JOB_NAME='CHAIN_JOB';
+        if job_found != 0 then
+            DBMS_SCHEDULER.DROP_JOB(job_name => 'CHAIN_JOB');
+        end if;
+    end;
+
+--  CHAIN
+
+    declare
+        chain_found number;
+    begin
+        select count(*) into chain_found from ALL_SCHEDULER_CHAINS where CHAIN_NAME='CHAIN_EXAMPLE';
+        if chain_found != 0 then
+            DBMS_SCHEDULER.DROP_CHAIN(
+                chain_name => 'CHAIN_EXAMPLE'
+            );
+        end if;
+    end;
+
+--  PROGRAM
+
+    declare
+        program_found number;
+    begin
+        select count(*) into program_found from ALL_SCHEDULER_PROGRAMS where PROGRAM_NAME='PROGRAM_1';
+        if program_found != 0 then
+            DBMS_SCHEDULER.DROP_PROGRAM(
+                program_name => 'PROGRAM_1'
+            );
+        end if;
+    end;
+
+    declare
+        program_found number;
+    begin
+        select count(*) into program_found from ALL_SCHEDULER_PROGRAMS where PROGRAM_NAME='PROGRAM_2';
+        if program_found != 0 then
+            DBMS_SCHEDULER.DROP_PROGRAM(
+                program_name => 'PROGRAM_2'
+            );
+        end if;
+    end;
+
+    declare
+        program_found number;
+    begin
+        select count(*) into program_found from ALL_SCHEDULER_PROGRAMS where PROGRAM_NAME='PROGRAM_3';
+        if program_found != 0 then
+            DBMS_SCHEDULER.DROP_PROGRAM(
+                program_name => 'PROGRAM_3'
+            );
+        end if;
+    end;
+
+    declare
+        program_found number;
+    begin
+        select count(*) into program_found from ALL_SCHEDULER_PROGRAMS where PROGRAM_NAME='PROGRAM_4';
+        if program_found != 0 then
+            DBMS_SCHEDULER.DROP_PROGRAM(
+                program_name => 'PROGRAM_4'
+            );
+        end if;
+    end;
+
+    declare
+        program_found number;
+    begin
+        select count(*) into program_found from ALL_SCHEDULER_PROGRAMS where PROGRAM_NAME='PROGRAM_5';
+        if program_found != 0 then
+            DBMS_SCHEDULER.DROP_PROGRAM(
+                program_name => 'PROGRAM_5'
+            );
+        end if;
+    end;
+
+--  STEPS
+
+    declare
+        step_found number;
+    begin
+        select count(*) into step_found from ALL_SCHEDULER_CHAIN_STEPS where CHAIN_NAME='CHAIN_EXAMPLE' and STEP_NAME='STEP_1';
+        if step_found != 0 then
+            DBMS_SCHEDULER.DROP_CHAIN_STEP(
+                chain_name => 'CHAIN_EXAMPLE',
+                step_name => 'STEP_1'
+            );
+        end if;
+    end;
+
+    declare
+        step_found number;
+    begin
+        select count(*) into step_found from ALL_SCHEDULER_CHAIN_STEPS where CHAIN_NAME='CHAIN_EXAMPLE' and STEP_NAME='STEP_2';
+        if step_found != 0 then
+            DBMS_SCHEDULER.DROP_CHAIN_STEP(
+                chain_name => 'CHAIN_EXAMPLE',
+                step_name => 'STEP_2'
+            );
+        end if;
+    end;
+
+    declare
+        step_found number;
+    begin
+        select count(*) into step_found from ALL_SCHEDULER_CHAIN_STEPS where CHAIN_NAME='CHAIN_EXAMPLE' and STEP_NAME='STEP_3';
+        if step_found != 0 then
+            DBMS_SCHEDULER.DROP_CHAIN_STEP(
+                chain_name => 'CHAIN_EXAMPLE',
+                step_name => 'STEP_3'
+            );
+        end if;
+    end;
+
+    declare
+        step_found number;
+    begin
+        select count(*) into step_found from ALL_SCHEDULER_CHAIN_STEPS where CHAIN_NAME='CHAIN_EXAMPLE' and STEP_NAME='STEP_4';
+        if step_found != 0 then
+            DBMS_SCHEDULER.DROP_CHAIN_STEP(
+                chain_name => 'CHAIN_EXAMPLE',
+                step_name => 'STEP_4'
+            );
+        end if;
+    end;
+
+    declare
+        step_found number;
+    begin
+        select count(*) into step_found from ALL_SCHEDULER_CHAIN_STEPS where CHAIN_NAME='CHAIN_EXAMPLE' and STEP_NAME='STEP_5';
+        if step_found != 0 then
+            DBMS_SCHEDULER.DROP_CHAIN_STEP(
+                chain_name => 'CHAIN_EXAMPLE',
+                step_name => 'STEP_5'
+            );
+        end if;
+    end;
+
+--
+--      CREATE CHAIN
+--
+
+    DBMS_SCHEDULER.CREATE_CHAIN(
+        chain_name => 'CHAIN_EXAMPLE'
+    );
+
+--
+--      CREATE PROGRAMS
+--
+
+    DBMS_SCHEDULER.CREATE_PROGRAM(
+        program_name => 'PROGRAM_1',
+        program_type => 'STORED_PROCEDURE',
+        program_action => 'select_from_a',
+        enabled => true
+    );
+
+    DBMS_SCHEDULER.CREATE_PROGRAM(
+        program_name => 'PROGRAM_2',
+        program_type => 'STORED_PROCEDURE',
+        program_action => 'select_from_b',
+        enabled => true
+    );
+
+    DBMS_SCHEDULER.CREATE_PROGRAM(
+        program_name => 'PROGRAM_3',
+        program_type => 'STORED_PROCEDURE',
+        program_action => 'select_from_c',
+        enabled => true
+    );
+
+    DBMS_SCHEDULER.CREATE_PROGRAM(
+        program_name => 'PROGRAM_4',
+        program_type => 'STORED_PROCEDURE',
+        program_action => 'select_from_d',
+        enabled => true
+    );
+
+    DBMS_SCHEDULER.CREATE_PROGRAM(
+        program_name => 'PROGRAM_5',
+        program_type => 'STORED_PROCEDURE',
+        program_action => 'update_postcode',
+        enabled => true
+    );
+
+--
+--      CREATE CHAIN STEPS
+--
+
+    DBMS_SCHEDULER.DEFINE_CHAIN_STEP(
+        chain_name => 'CHAIN_EXAMPLE',
+        step_name => 'STEP_1',
+        program_name => 'PROGRAM_1'
+    );
+
+    DBMS_SCHEDULER.DEFINE_CHAIN_STEP(
+        chain_name => 'CHAIN_EXAMPLE',
+        step_name => 'STEP_2',
+        program_name => 'PROGRAM_2'
+    );
+
+    DBMS_SCHEDULER.DEFINE_CHAIN_STEP(
+        chain_name => 'CHAIN_EXAMPLE',
+        step_name => 'STEP_3',
+        program_name => 'PROGRAM_3'
+    );
+
+    DBMS_SCHEDULER.DEFINE_CHAIN_STEP(
+        chain_name => 'CHAIN_EXAMPLE',
+        step_name => 'STEP_4',
+        program_name => 'PROGRAM_4'
+    );
+
+    DBMS_SCHEDULER.DEFINE_CHAIN_STEP(
+        chain_name => 'CHAIN_EXAMPLE',
+        step_name => 'STEP_5',
+        program_name => 'PROGRAM_5'
+    );
+
+--
+--      CREATE CHAIN RULES
+--
+
+    DBMS_SCHEDULER.DEFINE_CHAIN_RULE (
+        chain_name => 'CHAIN_EXAMPLE',
+        condition => 'TRUE',
+        action => 'start STEP_1'
+    );
+
+    DBMS_SCHEDULER.DEFINE_CHAIN_RULE (
+        chain_name => 'CHAIN_EXAMPLE',
+        condition => 'STEP_1 COMPLETED',
+        action => 'start STEP_2'
+    );
+
+    DBMS_SCHEDULER.DEFINE_CHAIN_RULE (
+        chain_name => 'CHAIN_EXAMPLE',
+        condition => 'STEP_1 COMPLETED',
+        action => 'start STEP_3'
+    );
+
+    DBMS_SCHEDULER.DEFINE_CHAIN_RULE (
+        chain_name => 'CHAIN_EXAMPLE',
+        condition => 'STEP_2 COMPLETED AND STEP_3 COMPLETED',
+        action => 'start STEP_4'
+   );
+
+    DBMS_SCHEDULER.DEFINE_CHAIN_RULE (
+        chain_name => 'CHAIN_EXAMPLE',
+        condition => 'STEP_4 COMPLETED',
+        action => 'start STEP_5'
+   );
+
+    DBMS_SCHEDULER.DEFINE_CHAIN_RULE (
+        chain_name => 'CHAIN_EXAMPLE',
+        condition => 'STEP_5 COMPLETED',
+        action => 'END'
+   );
+
+--
+--      ENABLE CHAIN
+--
+
+
+    DBMS_SCHEDULER.ENABLE(
+        name => 'CHAIN_EXAMPLE'
+    );
+
+--
+--      CREATE CREATE JOB
+--
+
+    DBMS_SCHEDULER.CREATE_JOB (
+        job_name => 'CHAIN_JOB',
+        job_type => 'CHAIN',
+        job_action => 'CHAIN_EXAMPLE',
+        auto_drop => false
+    );
+
+--
+--      RUN JOB
+--
+
+    DBMS_SCHEDULER.RUN_JOB(job_name => 'CHAIN_JOB', USE_CURRENT_SESSION => false);
+    commit;
+end;
+/
