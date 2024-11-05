@@ -1,116 +1,227 @@
-DECLARE
+declare
     match_first_name varchar2(50) := 'Friedrich';
-    start_time timestamp := SYSTIMESTAMP;
+    chunk_size number := 5000;
+    parallel_level number := 4;
+    start_time timestamp := systimestamp;
     start_time_b timestamp;
     start_time_c timestamp;
     start_time_d timestamp;
-BEGIN
-    DECLARE
+    start_time_e timestamp;
+    start_time_f timestamp;
+    start_time_g timestamp;
+    start_time_h timestamp;
+begin
+    declare
         task_found number;
-    BEGIN
-        SELECT COUNT(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS WHERE TASK_NAME='SELECT_FROM_PERSON_DATA_A';
-        IF task_found != 0 THEN
-            DBMS_PARALLEL_EXECUTE.DROP_TASK('SELECT_FROM_PERSON_DATA_A');
-        END IF;
-    END;
-    DECLARE
+    begin
+        select count(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS where TASK_NAME='PARALLEL_EXECUTE_DATA_A';
+        if task_found != 0 then
+            DBMS_PARALLEL_EXECUTE.DROP_TASK('PARALLEL_EXECUTE_DATA_A');
+        end if;
+    end;
+    declare
         task_found number;
-    BEGIN
-        SELECT COUNT(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS WHERE TASK_NAME='SELECT_FROM_PERSON_DATA_B';
-        IF task_found != 0 THEN
-            DBMS_PARALLEL_EXECUTE.DROP_TASK('SELECT_FROM_PERSON_DATA_B');
-        END IF;
-    END;
-    DECLARE
+    begin
+        select count(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS where TASK_NAME='PARALLEL_EXECUTE_DATA_B';
+        if task_found != 0 then
+            DBMS_PARALLEL_EXECUTE.DROP_TASK('PARALLEL_EXECUTE_DATA_B');
+        end if;
+    end;
+    declare
         task_found number;
-    BEGIN
-        SELECT COUNT(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS WHERE TASK_NAME='SELECT_FROM_PERSON_DATA_C';
-        IF task_found != 0 THEN
-            DBMS_PARALLEL_EXECUTE.DROP_TASK('SELECT_FROM_PERSON_DATA_C');
-        END IF;
-    END;
-    DECLARE
+    begin
+        select count(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS where TASK_NAME='PARALLEL_EXECUTE_DATA_C';
+        if task_found != 0 then
+            DBMS_PARALLEL_EXECUTE.DROP_TASK('PARALLEL_EXECUTE_DATA_C');
+        end if;
+    end;
+    declare
         task_found number;
-    BEGIN
-        SELECT COUNT(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS WHERE TASK_NAME='SELECT_FROM_PERSON_DATA_D';
-        IF task_found != 0 THEN
-            DBMS_PARALLEL_EXECUTE.DROP_TASK('SELECT_FROM_PERSON_DATA_D');
-        END IF;
-    END;
+    begin
+        select count(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS where TASK_NAME='PARALLEL_EXECUTE_DATA_D';
+        if task_found != 0 then
+            DBMS_PARALLEL_EXECUTE.DROP_TASK('PARALLEL_EXECUTE_DATA_D');
+        end if;
+    end;
+    declare
+        task_found number;
+    begin
+        select count(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS where TASK_NAME='PARALLEL_EXECUTE_DATA_E';
+        if task_found != 0 then
+            DBMS_PARALLEL_EXECUTE.DROP_TASK('PARALLEL_EXECUTE_DATA_E');
+        end if;
+    end;
+    declare
+        task_found number;
+    begin
+        select count(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS where TASK_NAME='PARALLEL_EXECUTE_DATA_F';
+        if task_found != 0 then
+            DBMS_PARALLEL_EXECUTE.DROP_TASK('PARALLEL_EXECUTE_DATA_F');
+        end if;
+    end;
+    declare
+        task_found number;
+    begin
+        select count(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS where TASK_NAME='PARALLEL_EXECUTE_DATA_G';
+        if task_found != 0 then
+            DBMS_PARALLEL_EXECUTE.DROP_TASK('PARALLEL_EXECUTE_DATA_G');
+        end if;
+    end;
+    declare
+        task_found number;
+    begin
+        select count(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS where TASK_NAME='PARALLEL_EXECUTE_DATA_H';
+        if task_found != 0 then
+            DBMS_PARALLEL_EXECUTE.DROP_TASK('PARALLEL_EXECUTE_DATA_H');
+        end if;
+    end;
 
-    DBMS_PARALLEL_EXECUTE.CREATE_TASK('SELECT_FROM_PERSON_DATA_A');
-    DBMS_PARALLEL_EXECUTE.CREATE_TASK('SELECT_FROM_PERSON_DATA_B');
-    DBMS_PARALLEL_EXECUTE.CREATE_TASK('SELECT_FROM_PERSON_DATA_C');
-    DBMS_PARALLEL_EXECUTE.CREATE_TASK('SELECT_FROM_PERSON_DATA_D');
-    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('SELECT_FROM_PERSON_DATA_A', 'SYSTEM', 'PERSON_DATA_A', true, 5000);
-    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('SELECT_FROM_PERSON_DATA_B', 'SYSTEM', 'PERSON_DATA_B', true, 5000);
-    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('SELECT_FROM_PERSON_DATA_C', 'SYSTEM', 'PERSON_DATA_C', true, 5000);
-    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('SELECT_FROM_PERSON_DATA_D', 'SYSTEM', 'PERSON_DATA_D', true, 5000);
+    DBMS_PARALLEL_EXECUTE.CREATE_TASK('PARALLEL_EXECUTE_DATA_A');
+    DBMS_PARALLEL_EXECUTE.CREATE_TASK('PARALLEL_EXECUTE_DATA_B');
+    DBMS_PARALLEL_EXECUTE.CREATE_TASK('PARALLEL_EXECUTE_DATA_C');
+    DBMS_PARALLEL_EXECUTE.CREATE_TASK('PARALLEL_EXECUTE_DATA_D');
+    DBMS_PARALLEL_EXECUTE.CREATE_TASK('PARALLEL_EXECUTE_DATA_E');
+    DBMS_PARALLEL_EXECUTE.CREATE_TASK('PARALLEL_EXECUTE_DATA_F');
+    DBMS_PARALLEL_EXECUTE.CREATE_TASK('PARALLEL_EXECUTE_DATA_G');
+    DBMS_PARALLEL_EXECUTE.CREATE_TASK('PARALLEL_EXECUTE_DATA_H');
 
-    DBMS_PARALLEL_EXECUTE.RUN_TASK('SELECT_FROM_PERSON_DATA_A', '
+    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('PARALLEL_EXECUTE_DATA_A', 'SYSTEM', 'DATA_A', true, chunk_size);
+    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('PARALLEL_EXECUTE_DATA_B', 'SYSTEM', 'DATA_B', true, chunk_size);
+    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('PARALLEL_EXECUTE_DATA_C', 'SYSTEM', 'DATA_C', true, chunk_size);
+    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('PARALLEL_EXECUTE_DATA_D', 'SYSTEM', 'DATA_D', true, chunk_size);
+    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('PARALLEL_EXECUTE_DATA_E', 'SYSTEM', 'DATA_E', true, chunk_size);
+    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('PARALLEL_EXECUTE_DATA_F', 'SYSTEM', 'DATA_F', true, chunk_size);
+    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('PARALLEL_EXECUTE_DATA_G', 'SYSTEM', 'DATA_G', true, chunk_size);
+    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('PARALLEL_EXECUTE_DATA_H', 'SYSTEM', 'DATA_H', true, chunk_size);
+
+    DBMS_PARALLEL_EXECUTE.RUN_TASK('PARALLEL_EXECUTE_DATA_A', '
         DECLARE
             start_time timestamp := SYSTIMESTAMP;
             count_person int;
         BEGIN
-            FOR person IN (SELECT * FROM PERSON_DATA_A WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
+            FOR person IN (SELECT * FROM DATA_A WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
             LOOP
                 INSERT INTO SELECTED VALUES person;
             END LOOP;
-            SELECT COUNT(*) INTO count_person from PERSON_DATA_A WHERE ROWID BETWEEN :start_id AND :end_id;
-            INSERT INTO EXECUTION_TIME VALUES (true, ''A'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
+            SELECT COUNT(*) INTO count_person from DATA_A WHERE ROWID BETWEEN :start_id AND :end_id;
+            INSERT INTO EXECUTION_TIME VALUES (''parallel execute'', ''A'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
         END;',
-        DBMS_SQL.native, parallel_level => 4);
-    INSERT INTO EXECUTION_TIME VALUES (true, 'A', null, null, null, start_time, SYSTIMESTAMP);
+        DBMS_SQL.native, parallel_level => parallel_level);
+    insert into EXECUTION_TIME values ('parallel execute', 'A', null, null, null, start_time, systimestamp);
 
-    start_time_b := SYSTIMESTAMP;
-    DBMS_PARALLEL_EXECUTE.RUN_TASK('SELECT_FROM_PERSON_DATA_B', '
+    start_time_b := systimestamp;
+        DBMS_PARALLEL_EXECUTE.RUN_TASK('PARALLEL_EXECUTE_DATA_B', '
         DECLARE
             start_time timestamp := SYSTIMESTAMP;
             count_person int;
         BEGIN
-            FOR person IN (SELECT * FROM PERSON_DATA_B WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
+            FOR person IN (SELECT * FROM DATA_B WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
             LOOP
                 INSERT INTO SELECTED VALUES person;
             END LOOP;
-            SELECT COUNT(*) INTO count_person from PERSON_DATA_B WHERE ROWID BETWEEN :start_id AND :end_id;
-            INSERT INTO EXECUTION_TIME VALUES (true, ''B'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
+            SELECT COUNT(*) INTO count_person from DATA_B WHERE ROWID BETWEEN :start_id AND :end_id;
+            INSERT INTO EXECUTION_TIME VALUES (''parallel execute'', ''B'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
         END;',
-        DBMS_SQL.native, parallel_level => 4);
-    INSERT INTO EXECUTION_TIME VALUES (true, 'B', null, null, null, start_time_b, SYSTIMESTAMP);
+        DBMS_SQL.native, parallel_level => parallel_level);
+    insert into EXECUTION_TIME values ('parallel execute', 'B', null, null, null, start_time_b, systimestamp);
 
-    start_time_c := SYSTIMESTAMP;
-    DBMS_PARALLEL_EXECUTE.RUN_TASK('SELECT_FROM_PERSON_DATA_C', '
+    start_time_c := systimestamp;
+        DBMS_PARALLEL_EXECUTE.RUN_TASK('PARALLEL_EXECUTE_DATA_C', '
         DECLARE
             start_time timestamp := SYSTIMESTAMP;
             count_person int;
         BEGIN
-            FOR person IN (SELECT * FROM PERSON_DATA_C WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
+            FOR person IN (SELECT * FROM DATA_C WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
             LOOP
                 INSERT INTO SELECTED VALUES person;
             END LOOP;
-            SELECT COUNT(*) INTO count_person from PERSON_DATA_C WHERE ROWID BETWEEN :start_id AND :end_id;
-            INSERT INTO EXECUTION_TIME VALUES (true, ''C'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
+            SELECT COUNT(*) INTO count_person from DATA_C WHERE ROWID BETWEEN :start_id AND :end_id;
+            INSERT INTO EXECUTION_TIME VALUES (''parallel execute'', ''C'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
         END;',
-        DBMS_SQL.native, parallel_level => 4);
-    INSERT INTO EXECUTION_TIME VALUES (true, 'C', null, null, null, start_time_c, SYSTIMESTAMP);
+        DBMS_SQL.native, parallel_level => parallel_level);
+    insert into EXECUTION_TIME values ('parallel execute', 'C', null, null, null, start_time_c, systimestamp);
 
-    start_time_d := SYSTIMESTAMP;
-    DBMS_PARALLEL_EXECUTE.RUN_TASK('SELECT_FROM_PERSON_DATA_D', '
+    start_time_d := systimestamp;
+    DBMS_PARALLEL_EXECUTE.RUN_TASK('PARALLEL_EXECUTE_DATA_D', '
         DECLARE
             start_time timestamp := SYSTIMESTAMP;
             count_person int;
         BEGIN
-            FOR person IN (SELECT * FROM PERSON_DATA_D WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
+            FOR person IN (SELECT * FROM DATA_D WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
             LOOP
                 INSERT INTO SELECTED VALUES person;
             END LOOP;
-            SELECT COUNT(*) INTO count_person from PERSON_DATA_D WHERE ROWID BETWEEN :start_id AND :end_id;
-            INSERT INTO EXECUTION_TIME VALUES (true, ''D'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
+            SELECT COUNT(*) INTO count_person from DATA_D WHERE ROWID BETWEEN :start_id AND :end_id;
+            INSERT INTO EXECUTION_TIME VALUES (''parallel execute'', ''D'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
         END;',
-        DBMS_SQL.native, parallel_level => 4);
-    INSERT INTO EXECUTION_TIME VALUES (true, 'D', null, null, null, start_time_d, SYSTIMESTAMP);
+        DBMS_SQL.native, parallel_level => parallel_level);
+    insert into EXECUTION_TIME values ('parallel execute', 'D', null, null, null, start_time_d, systimestamp);
 
-    INSERT INTO EXECUTION_TIME VALUES (true, null, null, null, null, start_time, SYSTIMESTAMP);
-    COMMIT;
-END;
+    start_time_e := systimestamp;
+    DBMS_PARALLEL_EXECUTE.RUN_TASK('PARALLEL_EXECUTE_DATA_E', '
+        DECLARE
+            start_time timestamp := SYSTIMESTAMP;
+            count_person int;
+        BEGIN
+            FOR person IN (SELECT * FROM DATA_E WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
+            LOOP
+                INSERT INTO SELECTED VALUES person;
+            END LOOP;
+            SELECT COUNT(*) INTO count_person from DATA_E WHERE ROWID BETWEEN :start_id AND :end_id;
+            INSERT INTO EXECUTION_TIME VALUES (''parallel execute'', ''E'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
+        END;',
+        DBMS_SQL.native, parallel_level => parallel_level);
+    insert into EXECUTION_TIME values ('parallel execute', 'E', null, null, null, start_time_e, systimestamp);
+
+    start_time_f := systimestamp;
+    DBMS_PARALLEL_EXECUTE.RUN_TASK('PARALLEL_EXECUTE_DATA_F', '
+        DECLARE
+            start_time timestamp := SYSTIMESTAMP;
+            count_person int;
+        BEGIN
+            FOR person IN (SELECT * FROM DATA_F WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
+            LOOP
+                INSERT INTO SELECTED VALUES person;
+            END LOOP;
+            SELECT COUNT(*) INTO count_person from DATA_F WHERE ROWID BETWEEN :start_id AND :end_id;
+            INSERT INTO EXECUTION_TIME VALUES (''parallel execute'', ''F'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
+        END;',
+        DBMS_SQL.native, parallel_level => parallel_level);
+    insert into EXECUTION_TIME values ('parallel execute', 'F', null, null, null, start_time_f, systimestamp);
+
+    start_time_g := systimestamp;
+    DBMS_PARALLEL_EXECUTE.RUN_TASK('PARALLEL_EXECUTE_DATA_G', '
+        DECLARE
+            start_time timestamp := SYSTIMESTAMP;
+            count_person int;
+        BEGIN
+            FOR person IN (SELECT * FROM DATA_G WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
+            LOOP
+                INSERT INTO SELECTED VALUES person;
+            END LOOP;
+            SELECT COUNT(*) INTO count_person from DATA_G WHERE ROWID BETWEEN :start_id AND :end_id;
+            INSERT INTO EXECUTION_TIME VALUES (''parallel execute'', ''G'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
+        END;',
+        DBMS_SQL.native, parallel_level => parallel_level);
+    insert into EXECUTION_TIME values ('parallel execute', 'G', null, null, null, start_time_g, systimestamp);
+
+    start_time_h := systimestamp;
+    DBMS_PARALLEL_EXECUTE.RUN_TASK('PARALLEL_EXECUTE_DATA_H', '
+        DECLARE
+            start_time timestamp := SYSTIMESTAMP;
+            count_person int;
+        BEGIN
+            FOR person IN (SELECT * FROM DATA_H WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
+            LOOP
+                INSERT INTO SELECTED VALUES person;
+            END LOOP;
+            SELECT COUNT(*) INTO count_person from DATA_H WHERE ROWID BETWEEN :start_id AND :end_id;
+            INSERT INTO EXECUTION_TIME VALUES (''parallel execute'', ''H'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
+        END;',
+        DBMS_SQL.native, parallel_level => parallel_level);
+    insert into EXECUTION_TIME values ('parallel execute', 'H', null, null, null, start_time_h, systimestamp);
+
+    insert into EXECUTION_TIME values ('parallel execute', null, null, null, null, start_time, systimestamp);
+    commit;
+end;
 /
