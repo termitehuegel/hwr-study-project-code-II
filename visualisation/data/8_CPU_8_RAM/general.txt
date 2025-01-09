@@ -1,1 +1,2 @@
-elements selected: 3178
+elements selected (10000): 3178
+elements selected (100000): 32159
