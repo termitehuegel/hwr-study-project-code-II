@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 count = 10000
 
@@ -7,7 +8,7 @@ df = df[df['table_char'] == 'ALL']
 
 df['start_time'] = pd.to_datetime(df['start_time'])
 df['end_time'] = pd.to_datetime(df['end_time'])
-df['duration'] = pd.to_timedelta(df['end_time'] - df['start_time']).dt.microseconds
+df['duration'] = pd.to_timedelta(df['end_time'] - df['start_time']).astype(np.int64) / int(1e3)
 
 seq_dur =  df[df['script'] == 'sequential'].loc[:, 'duration'].mean()
 sched_dur = df[df['script'] == 'scheduler'].loc[:, 'duration'].mean()
