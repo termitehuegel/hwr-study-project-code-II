@@ -1,0 +1,13 @@
+script,cpu,avg_duration
+sequential,1,4436220.333333333
+scheduler,1,6109584.0
+parallel execute,1,41499365.333333336
+sequential,2,4050398.3333333335
+scheduler,2,6423631.0
+parallel execute,2,24679626.666666668
+sequential,4,3834920.3333333335
+scheduler,4,7592172.333333333
+parallel execute,4,24821653.333333332
+sequential,8,5124343.333333333
+scheduler,8,15398565.666666666
+parallel execute,8,24962390.0
