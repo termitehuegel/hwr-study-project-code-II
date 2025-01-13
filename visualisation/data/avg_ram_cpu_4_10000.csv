@@ -1,0 +1,10 @@
+script,ram,avg_duration
+sequential,2,52519.0
+scheduler,2,138914.33333333334
+parallel execute,2,24769088.666666668
+sequential,4,48687.0
+scheduler,4,127098.0
+parallel execute,4,24621604.333333332
+sequential,8,47410.333333333336
+scheduler,8,154947.33333333334
+parallel execute,8,24633382.333333332
