@@ -1,0 +1,37 @@
+declare
+    match_first_name varchar2(50) := 'Friedrich';
+    chunk_size number := 5000;
+    parallel_level number := 4;
+    start_time timestamp := systimestamp;
+begin
+    declare
+        task_found number;
+    begin
+        select count(*) into task_found from DBA_PARALLEL_EXECUTE_TASKS where TASK_NAME='PARALLEL_EXECUTE_DATA_A';
+        if task_found != 0 then
+            DBMS_PARALLEL_EXECUTE.DROP_TASK('PARALLEL_EXECUTE_DATA_A');
+        end if;
+    end;
+
+    DBMS_PARALLEL_EXECUTE.CREATE_TASK('PARALLEL_EXECUTE_DATA_A');
+
+    DBMS_PARALLEL_EXECUTE.CREATE_CHUNKS_BY_ROWID('PARALLEL_EXECUTE_DATA_A', 'SYSTEM', 'DATA_A', true, chunk_size);
+
+    DBMS_PARALLEL_EXECUTE.RUN_TASK('PARALLEL_EXECUTE_DATA_A', '
+        DECLARE
+            start_time timestamp := SYSTIMESTAMP;
+            count_person int;
+        BEGIN
+            FOR person IN (SELECT * FROM DATA_A WHERE first_name=''' || match_first_name ||''' AND ROWID BETWEEN :start_id AND :end_id)
+            LOOP
+                INSERT INTO SELECTED VALUES person;
+            END LOOP;
+            SELECT COUNT(*) INTO count_person from DATA_A WHERE ROWID BETWEEN :start_id AND :end_id;
+            INSERT INTO EXECUTION_TIME VALUES (''parallel execute'', ''A'', count_person, :start_id, :end_id, start_time, SYSTIMESTAMP);
+        END;',
+        DBMS_SQL.native, parallel_level => parallel_level);
+
+    insert into EXECUTION_TIME values ('parallel execute', 'A', null, null, null, start_time, systimestamp);
+    commit;
+end;
+/
