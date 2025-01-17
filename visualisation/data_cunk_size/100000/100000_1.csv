@@ -1,0 +1,4 @@
+script,table_char,chunk_size,chunk_start,chunk_end,start_time,end_time
+parallel execute,ALL,,,,2025-01-17 09:12:40.315383,2025-01-17 09:12:43.889650
+parallel execute,A,84091,AAARnnAAAAAACfwAAA,AAARnnAAAAAAgACH//,2025-01-17 09:12:40.788609,2025-01-17 09:12:40.829184
+parallel execute,A,15909,AAARnnAAAAAAgADAAA,AAARnnAAAAAAgB/H//,2025-01-17 09:12:40.830595,2025-01-17 09:12:40.837084
